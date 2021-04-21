@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from blog.views import BlogView
+from django.views.generic import TemplateView
+from blog.views import BlogView,HomeView,List_blog_view
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('<int:blog_id>', BlogView),
+    path('',TemplateView.as_view(template_name='index.html')),
+    path('home', HomeView),
+    path('blogs/<str:blog_id>', BlogView),
+    path('blogs',List_blog_view),
+
 ]
