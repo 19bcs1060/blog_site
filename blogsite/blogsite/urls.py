@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
-from blog.views import BlogView,HomeView,List_blog_view
+from blog.views import BlogView,HomeView,List_blog_view, blog_create_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeView),
+    path('create-form',blog_create_view),
     path('blogs/<str:blog_id>', BlogView),
     path('blogs',List_blog_view),
 
