@@ -1,5 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>hello world</h1>
+<div class='contanine'> 
+    <div class='col text-center'>
+        <h1>hello world</h1>
+    </div>
+    <div id='blog'>Loading...</div>
+</div>
+
+
+<script>
+    const blogHtml =document.getElementById('blog');
+    function likeBttn(blog){
+        return "<button class ='btn btn-primary'>Like</button>" 
+    }
+    function Blogreturn(blog){
+        return "<div class='container'><div class='row'><div class='py-2 m-3 border'><h1>"+ blog.id + "</h1>" +blog.content+ "<div class='btn-grp'>"+ likeBttn(blog)+"</div></div><div></div>";
+        
+    }
+    const xhr= new XMLHttpRequest();
+    const method= 'GET';
+    const url= '/blogs';
+    const responseType= 'json';
+    xhr.responseType= responseType;
+    xhr.open(method, url);
+    xhr.onload = function(){
+        const serverResponse= xhr.response;
+        const listedItems= serverResponse.response; //make list of dictionary
+        var finalHtml="";
+        var i;
+        for(i=0;i<listedItems.length;i++){
+            console.log(listedItems[i])
+            var m=listedItems[i];
+            var temp= Blogreturn(m)
+            finalHtml+= temp;
+        }
+        blogHtml.innerHTML= finalHtml;
+    };
+    xhr.send();
+</script>
 {% endblock content %}
